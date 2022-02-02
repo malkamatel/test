@@ -1,0 +1,64 @@
+<!--<div *ngFor="let day of  priceList">-->
+<!--  <div>:בתאריך</div>-->
+<!--  <div>{{day.date}}</div>-->
+<!--  <div>{{day.open | number : '1.2-2'}}:מחיר פתיחה</div>-->
+<!--  <div>{{day.high | number : '1.2-2'}}:המחיר הגבוה ביותר</div>-->
+<!--  <div>{{day.low | number : '1.2-2'}}:המחיר הנמוך ביותר</div>-->
+<!--  <div>{{day.close | number:'1.2-2'}}:המחרי סיום</div>-->
+<!--  <div>:הפרש המחירים בין פתיחה לסגירה</div>-->
+<!--  <div>{{ day.difference | number : '1.2-2'}}</div>-->
+<!--  <br>-->
+<!--</div>-->
+<div style="display: flex;justify-content: space-between">
+  <br>
+  <div style="width: 18%">
+    <div>מגיע ממערך ממוין</div>
+    <div>{{date1.date|date: 'dd.MM.yyyy'}} :כדאי לקנות בתאריך</div>
+    <div>{{date2.date|date: 'dd.MM.yyyy'}} :כדאי למכור בתאריך</div>
+    <div>הרווח</div>
+    <div>{{maxDiff(priceList, priceList.length, 'close') | number:'1.2-2'}}</div>
+    <br>
+    <div>לא מגיע ממערך ממוין</div>
+    <div>{{date3.date|date: 'dd.MM.yyyy'}} :כדאי לקנות בתאריך</div>
+    <div>{{date4.date|date: 'dd.MM.yyyy'}} :כדאי למכור בתאריך</div>
+    <div>הרווח</div>
+    <div>{{maxDiffNotSort(priceList, priceList.length, 'close') | number:'1.2-2'}}</div>
+  </div>
+  <div style="width: 80%">
+    <p-table  [value]="priceList" styleClass="p-datatable-gridlines" [paginator]="true" [rows]="20" [showCurrentPageReport]="true"
+              responsiveLayout="scroll"
+             currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries">
+    <ng-template pTemplate="header">
+      <tr>
+        <th pSortableColumn="date">תאריך <p-sortIcon field="date"></p-sortIcon>
+          <div class="flex justify-content-center align-items-center">
+            Date
+            <p-columnFilter type="date" field="date" display="menu"></p-columnFilter>
+          </div>
+        </th>
+        <th pSortableColumn="open">מחיר פתיחה <p-sortIcon field="poen"></p-sortIcon></th>
+        <th pSortableColumn="high">המחיר הכי גבוהה <p-sortIcon field="high"></p-sortIcon></th>
+        <th pSortableColumn="low">המחיר הכי נמוך<p-sortIcon field="low"></p-sortIcon></th>
+        <th pSortableColumn="close">מחיר סיום <p-sortIcon field="close"></p-sortIcon></th>
+        <th pSortableColumn="open">הפרש בין פתיחה לסיום <p-sortIcon field="poen"></p-sortIcon></th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-day>
+      <tr>
+        <td>{{day.date |date: 'dd.MM.yyyy'}}</td>
+        <td>{{day.open}}</td>
+        <td>{{day.high}}</td>
+        <td>{{day.low}}</td>
+        <td>{{day.close}}</td>
+        <td>{{day.difference| number : '1.2-2'}}</td>
+      </tr>
+    </ng-template>
+      <ng-template pTemplate="paginatorleft">
+        <p-button type="button" icon="pi pi-plus" styleClass="p-button-text"></p-button>
+      </ng-template>
+      <ng-template pTemplate="paginatorright">
+        <p-button type="button" icon="pi pi-cloud" styleClass="p-button-text"></p-button>
+      </ng-template>
+  </p-table>
+  </div>
+</div>
